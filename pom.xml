@@ -7,7 +7,7 @@
     <packaging>jar</packaging>
     <name>SpeedRun Bot</name>
     <url>https://github.com/LeftistTachyon/SpeedRunBot</url>
-    <description></description>
+    <description>A bot that connects to Speedrun.com and notifies the server of any updates.</description>
     <inceptionYear>2019</inceptionYear>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

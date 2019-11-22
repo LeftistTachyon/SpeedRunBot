@@ -23,7 +23,7 @@ public class Main extends ListenerAdapter {
     public static void main(String[] args) {
         try {
             JDABuilder builder = new JDABuilder(AccountType.BOT);
-            builder.setToken("NjQ3MjY5MzgzMzQ1MDEyNzM2.XddPaw.BWl2ItiYjX1LD4MK7-rn_zMuGeI");
+            builder.setToken("NjQ3MjY5MzgzMzQ1MDEyNzM2.XddUDQ.6GQhFHTNjQm-NiYyjCklQLS4cMw");
             builder.addEventListeners(new Main());
             builder.build();
         } catch (LoginException ex) {
