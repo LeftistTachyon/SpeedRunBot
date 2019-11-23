@@ -9,6 +9,18 @@
     <url>https://github.com/LeftistTachyon/SpeedRunBot</url>
     <description>A bot that connects to Speedrun.com and notifies the server of any updates.</description>
     <inceptionYear>2019</inceptionYear>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <showDeprecation>true</showDeprecation>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -18,7 +30,7 @@
         <dependency>
             <groupId>net.dv8tion</groupId>
             <artifactId>JDA</artifactId>
-            <version>4.0.0_39</version>
+            <version>4.0.0_62</version>
         </dependency>
     </dependencies>
     <repositories>

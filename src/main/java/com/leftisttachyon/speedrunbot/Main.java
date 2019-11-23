@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 import javax.security.auth.login.LoginException;
 import net.dv8tion.jda.api.AccountType;
 import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -31,18 +32,31 @@ public class Main extends ListenerAdapter {
         }
     }
 
+    /**
+     * Called when a message is received on any accessible text channel.
+     *
+     * @param event a {@code MessageReceivedEvent}F that describes the event
+     */
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
-        System.out.println("We received a message from " + 
-                event.getAuthor().getName() + ": " + 
-                event.getMessage().getContentDisplay());
-        
+        System.out.println("We received a message from "
+                + event.getAuthor().getName() + ": "
+                + event.getMessage().getContentDisplay());
+
         if (event.getAuthor().isBot()) {
             return;
         }
-        
-        if (event.getMessage().getContentRaw().equals("!ping")) {
-            event.getChannel().sendMessage("Pong!").queue();
+
+        String[] data = event.getMessage().getContentRaw().split("\\s+");
+        if (data.length < 1 || !data[0].startsWith("~")) {
+            return;
+        }
+
+        MessageChannel channel = event.getChannel();
+        switch (data[0].substring(1)) {
+            case "ping":
+                channel.sendMessage("Pong!").queue();
+                break;
         }
     }
 }
