@@ -39,7 +39,7 @@ public class Command {
      * A list of aliases (or nicknames or shorthand) that can call this command.<br>
      * For example, {@code resume} could be an alias of {@code unpause}
      */
-    private final List<String> aliases;
+    private final String[] aliases;
 
     /**
      * Creates a new Command
@@ -57,19 +57,6 @@ public class Command {
         for (int i = 0; i < aliases.length; i++) {
             aliases[i] = aliases[i].toLowerCase();
         }
-        this.aliases = List.of(aliases);
-    }
-
-    /**
-     * Creates a new Command
-     *
-     * @param function    the code to execute when this command is invoked
-     * @param description the description of the command
-     * @param aliases     an immutable list of the aliases of this command
-     */
-    protected Command(Consumer<MessageReceivedEvent> function, String description, List<String> aliases) {
-        this.function = function;
-        this.description = description;
         this.aliases = aliases;
     }
 
@@ -87,7 +74,7 @@ public class Command {
      *
      * @return the aliases of this command
      */
-    public List<String> getAliases() {
+    public String[] getAliases() {
         return aliases;
     }
 
@@ -97,7 +84,7 @@ public class Command {
      * @return the primary alias of this command
      */
     public String getPrimaryAlias() {
-        return aliases.get(0);
+        return aliases[0];
     }
 
     /**
