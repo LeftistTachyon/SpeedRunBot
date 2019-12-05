@@ -4,7 +4,6 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.List;
 import java.util.function.Consumer;
 
 /**
@@ -106,8 +105,8 @@ public class Command {
      */
     protected boolean shouldInvoke(String[] data) {
         logger.trace("shouldInvoke for {}: {} {} {}", getPrimaryAlias(), data.length > 0, data[0].startsWith(PREFIX),
-                aliases.contains(data[0].substring(PREFIX.length())));
-        return data.length > 0 && data[0].startsWith(PREFIX) && aliases.contains(data[0].substring(PREFIX.length()));
+                isAlias(data[0].substring(PREFIX.length());
+        return data.length > 0 && data[0].startsWith(PREFIX) && isAlias(data[0].substring(PREFIX.length()));
     }
 
     /**
@@ -126,6 +125,12 @@ public class Command {
      * @return whether the given string is an alias of this command
      */
     public boolean isAlias(String alias) {
-        return aliases.contains(alias);
+        for (String s : aliases) {
+            if (s.equals(alias)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
