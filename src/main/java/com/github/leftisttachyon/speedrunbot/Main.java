@@ -1,5 +1,7 @@
 package com.github.leftisttachyon.speedrunbot;
 
+import com.github.leftisttachyon.speedrunbot.commands.ConsumerCommand;
+import com.github.leftisttachyon.speedrunbot.commands.ConsumerSubcommand;
 import net.dv8tion.jda.api.AccountType;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDABuilder;
@@ -17,7 +19,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.TreeMap;
 
-import static com.github.leftisttachyon.speedrunbot.Command.PREFIX;
+import static com.github.leftisttachyon.speedrunbot.commands.ConsumerCommand.PREFIX;
 
 /**
  * The main class for this application.
@@ -30,12 +32,12 @@ public class Main extends ListenerAdapter {
     /**
      * The logger for this application
      */
-    private static final Logger logger = LoggerFactory.getLogger(Main.class);
+    private static final Logger log = LoggerFactory.getLogger(Main.class);
 
     /**
      * A Map of all commands, sorted by category
      */
-    private TreeMap<String, List<Command>> commands;
+    private TreeMap<String, List<ConsumerCommand>> commands;
 
     /**
      * Creates a new Main object
@@ -44,10 +46,10 @@ public class Main extends ListenerAdapter {
         commands = new TreeMap<>();
 
         // a list of "Meta" commands
-        List<Command> metaCommands = new ArrayList<>();
+        List<ConsumerCommand> metaCommands = new ArrayList<>();
 
         // the "!!ping" command
-        metaCommands.add(new Command(event -> {
+        metaCommands.add(new ConsumerCommand(event -> {
             OffsetDateTime time = event.getMessage().getTimeCreated(),
                     now = OffsetDateTime.now();
             Duration delay = Duration.between(now, time);
@@ -57,7 +59,7 @@ public class Main extends ListenerAdapter {
         }, "Pings me!", new String[]{"ping"}));
 
         // the "!!help" command
-        metaCommands.add(new Command(this::help,
+        metaCommands.add(new ConsumerCommand(this::help,
                 "Lists commands or, if specified, gives a detailed entry on a command.",
                 new String[]{"help", "halp"}));
 
@@ -75,11 +77,11 @@ public class Main extends ListenerAdapter {
             JDABuilder builder = new JDABuilder(AccountType.BOT);
             builder.setToken(Token.getToken());
             builder.addEventListeners(new Main());
-            logger.info("JDABuilder initialized");
+            log.info("JDABuilder initialized");
             builder.build();
-            logger.info("JDABuilder#build() invoked");
+            log.info("JDABuilder#build() invoked");
         } catch (LoginException ex) {
-            logger.error("Could not log in successfully", ex);
+            log.error("Could not log in successfully", ex);
         }
     }
 
@@ -90,7 +92,7 @@ public class Main extends ListenerAdapter {
      */
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
-        logger.info("Message received from {}: \"{}\"", event.getAuthor().getName(),
+        log.info("Message received from {}: \"{}\"", event.getAuthor().getName(),
                 event.getMessage().getContentDisplay());
 
         if (event.getAuthor().isBot()) {
@@ -100,15 +102,15 @@ public class Main extends ListenerAdapter {
         String message = event.getMessage().getContentRaw();
 
         String[] data = message.split("\\s+");
-        logger.trace("data: {}", Arrays.toString(data));
+        log.trace("data: {}", Arrays.toString(data));
         if (data.length == 0 || !data[0].startsWith(PREFIX)) {
             return;
         }
 
         outer:
-        for (List<Command> commandList : commands.values()) {
-            for (Command c : commandList) {
-                logger.trace("Checking for invokation of {}{}", PREFIX, c.getPrimaryAlias());
+        for (List<ConsumerCommand> commandList : commands.values()) {
+            for (ConsumerCommand c : commandList) {
+                log.trace("Checking for invokation of {}{}", PREFIX, c.getPrimaryAlias());
                 if (c.shouldInvoke(message)) {
                     c.invoke(event);
                     break outer;
@@ -147,8 +149,8 @@ public class Main extends ListenerAdapter {
                 for (String module : commands.keySet()) {
                     // for the body of the field
                     StringBuilder sBuilder = new StringBuilder();
-                    for (Command c : commands.get(module)) {
-                        if (c instanceof Subcommand) {
+                    for (ConsumerCommand c : commands.get(module)) {
+                        if (c instanceof ConsumerSubcommand) {
                             continue;
                         }
                         sBuilder.append("`");
@@ -188,10 +190,10 @@ public class Main extends ListenerAdapter {
      */
     private void embedSpecificHelp(MessageReceivedEvent event, String command,
                                    EmbedBuilder builder, String failMessage) {
-        Command command_ = null;
+        ConsumerCommand command_ = null;
         outer:
-        for (List<Command> cc : commands.values()) {
-            for (Command c : cc) {
+        for (List<ConsumerCommand> cc : commands.values()) {
+            for (ConsumerCommand c : cc) {
                 if (c.isAlias(command)) {
                     command_ = c;
                     break outer;
@@ -213,7 +215,7 @@ public class Main extends ListenerAdapter {
         sBuilder.append("\n");
         sBuilder.append(command_.getDescription());
         sBuilder.append("\n");
-        if (command_.getAliases().size() > 1) {
+        if (command_.getAliases().length > 1) {
             sBuilder.append("Other aliases: ");
             for (String alias : command_.getAliases()) {
                 if (!alias.equals(command)) {

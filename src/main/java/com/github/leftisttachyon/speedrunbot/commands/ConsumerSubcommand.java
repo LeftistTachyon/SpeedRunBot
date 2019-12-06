@@ -1,39 +1,29 @@
-package com.github.leftisttachyon.speedrunbot;
+package com.github.leftisttachyon.speedrunbot.commands;
 
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.function.Consumer;
 
 /**
- * A POJO object that represents a subcommand
+ * A POJO object that represents a subcommand based off a Consumer object.
  *
  * @author Jed Wang
  * @since 0.9.0
+ * @see Consumer
  */
-public class Subcommand extends Command {
-    /**
-     * The aliases of this subcommand
-     */
-    private List<String> subAliases;
+public class ConsumerSubcommand extends Subcommand {
 
     /**
-     * Creates a new command
+     * Creates a new ConsumerSubcommand
      *
      * @param function    the code that this subcommand will execute
      * @param description a description of this subcommand
      * @param aliases     aliases of the parent command; the first one in the array will always be the primary alias
      * @param subAliases  the aliases of the subcommand; the first one is the primary alias
      */
-    public Subcommand(Consumer<MessageReceivedEvent> function, String description, String[] aliases,
-                      String[] subAliases) {
+    public ConsumerSubcommand(Consumer<MessageReceivedEvent> function, String description, String[] aliases,
+                              String[] subAliases) {
         super(function, description, aliases);
-
-        for (int i = 0; i < subAliases.length; i++) {
-            subAliases[i] = subAliases[i].toLowerCase();
-        }
-        this.subAliases = List.of(subAliases);
     }
 
     /**
@@ -44,21 +34,23 @@ public class Subcommand extends Command {
      * @param subAliases  the aliases of this subcommand
      * @param parent      the parent of this subcommand
      */
-    public Subcommand(Consumer<MessageReceivedEvent> function, String description, String[] subAliases,
-                      Command parent) {
+    public ConsumerSubcommand(Consumer<MessageReceivedEvent> function, String description, String[] subAliases,
+                              ConsumerCommand parent) {
         super(function, description, parent.getAliases());
         for (int i = 0; i < subAliases.length; i++) {
             subAliases[i] = subAliases[i].toLowerCase();
         }
-        this.subAliases = List.of(subAliases);
+        this.subAliases = subAliases;
     }
 
     @Override
-    public List<String> getAliases() {
-        List<String> output = new ArrayList<>();
-        for (String superAlias : super.getAliases()) {
+    public String[] getAliases() {
+        String[] parentAliases = super.getAliases(),
+                output = new String[parentAliases.length * subAliases.length];
+        int cnt = 0;
+        for (String superAlias : parentAliases) {
             for (String subAlias : subAliases) {
-                output.add(superAlias + " " + subAlias);
+                output[cnt++] = superAlias + " " + subAlias;
             }
         }
         return output;
@@ -69,7 +61,7 @@ public class Subcommand extends Command {
      *
      * @return the aliases of the parent command
      */
-    public List<String> getParentAliases() {
+    public String[] getParentAliases() {
         return super.getAliases();
     }
 
@@ -78,23 +70,39 @@ public class Subcommand extends Command {
      *
      * @return the aliases of this subcommand
      */
-    public List<String> getSubAliases() {
+    public String[] getSubAliases() {
         return subAliases;
     }
 
     @Override
     public boolean shouldInvoke(String s) {
         String[] data = s.split("\\s+");
-        return super.shouldInvoke(data) && subAliases.contains(data[1]);
+        if (!super.shouldInvoke(data)) {
+            return false;
+        }
+
+        return isAlias(data[1]);
     }
 
     @Override
     public String getPrimaryAlias() {
-        return super.getPrimaryAlias() + " " + subAliases.get(0);
+        return super.getPrimaryAlias() + " " + subAliases[0];
     }
 
+    /**
+     * Determines whether the given string is an alias of this subcommand, not the parent command.
+     *
+     * @param alias the possible alias
+     * @return whether the given string is an alias of this subcommand
+     */
     @Override
     public boolean isAlias(String alias) {
-        return super.isAlias(alias) && subAliases.contains(alias);
+        for (String str : subAliases) {
+            if (str.equals(alias)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

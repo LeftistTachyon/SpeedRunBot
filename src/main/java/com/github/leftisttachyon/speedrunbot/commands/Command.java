@@ -1,4 +1,4 @@
-package com.github.leftisttachyon.speedrunbot;
+package com.github.leftisttachyon.speedrunbot.commands;
 
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import org.slf4j.Logger;
@@ -12,22 +12,16 @@ import java.util.function.Consumer;
  * @author Jed Wang
  * @since 0.9.0
  */
-public class Command {
-
+public abstract class Command {
     /**
      * The logger for this class
      */
-    private static final Logger logger = LoggerFactory.getLogger(Command.class);
+    private static final Logger log = LoggerFactory.getLogger(Command.class);
 
     /**
      * The prefix this bot will use
      */
-    static final String PREFIX = "!!";
-
-    /**
-     * The code that the function executes
-     */
-    private final Consumer<MessageReceivedEvent> function;
+    public static final String PREFIX = "!!";
 
     /**
      * A description of the command
@@ -41,14 +35,12 @@ public class Command {
     private final String[] aliases;
 
     /**
-     * Creates a new Command
+     * Creates a new ConsumerCommand
      *
-     * @param function    the code that the command will execute
      * @param description a description of the command
      * @param aliases     aliases of the command; the first one in the array will always be the primary alias
      */
-    public Command(Consumer<MessageReceivedEvent> function, String description, String[] aliases) {
-        this.function = function;
+    public Command(String description, String[] aliases) {
         this.description = description;
         if (aliases.length == 0) {
             throw new IllegalArgumentException("A command must have at least one alias");
@@ -104,9 +96,10 @@ public class Command {
      * @return whether this command should be invoked
      */
     protected boolean shouldInvoke(String[] data) {
-        logger.trace("shouldInvoke for {}: {} {} {}", getPrimaryAlias(), data.length > 0, data[0].startsWith(PREFIX),
-                isAlias(data[0].substring(PREFIX.length());
-        return data.length > 0 && data[0].startsWith(PREFIX) && isAlias(data[0].substring(PREFIX.length()));
+        boolean startsWith = data[0].startsWith(PREFIX), isAlias = isAlias(data[0].substring(PREFIX.length()));
+        log.trace("shouldInvoke for {}: {} {} {}", getPrimaryAlias(), data.length > 0, startsWith,
+                isAlias);
+        return data.length > 0 && startsWith && isAlias;
     }
 
     /**
@@ -114,9 +107,7 @@ public class Command {
      *
      * @param event the event that gives the information needed to invoke this command
      */
-    public void invoke(MessageReceivedEvent event) {
-        function.accept(event);
-    }
+    public abstract void invoke(MessageReceivedEvent event);
 
     /**
      * Determines whether the given string is an alias of this command
