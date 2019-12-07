@@ -30,7 +30,7 @@ public class Commands {
         metaCommands.add(new ConsumerCommand(event -> {
             OffsetDateTime time = event.getMessage().getTimeCreated(),
                     now = OffsetDateTime.now();
-            Duration delay = Duration.between(now, time);
+            Duration delay = Duration.between(time, now);
             long millis = delay.toMillis();
 
             event.getChannel().sendMessageFormat("Pong! The delay is %,d milliseconds.", millis).queue();
