@@ -1,10 +1,9 @@
-package com.github.leftisttachyon.speedrunbot;
+package com.github.leftisttachyon.speedrunbot.commands;
 
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.List;
 import java.util.function.Consumer;
 
 /**
@@ -13,22 +12,16 @@ import java.util.function.Consumer;
  * @author Jed Wang
  * @since 0.9.0
  */
-public class Command {
-
+public abstract class Command {
     /**
      * The logger for this class
      */
-    private static final Logger logger = LoggerFactory.getLogger(Command.class);
+    private static final Logger log = LoggerFactory.getLogger(Command.class);
 
     /**
      * The prefix this bot will use
      */
-    static final String PREFIX = "!!";
-
-    /**
-     * The code that the function executes
-     */
-    private final Consumer<MessageReceivedEvent> function;
+    public static final String PREFIX = "!!";
 
     /**
      * A description of the command
@@ -39,17 +32,15 @@ public class Command {
      * A list of aliases (or nicknames or shorthand) that can call this command.<br>
      * For example, {@code resume} could be an alias of {@code unpause}
      */
-    private final List<String> aliases;
+    private final String[] aliases;
 
     /**
-     * Creates a new Command
+     * Creates a new ConsumerCommand
      *
-     * @param function    the code that the command will execute
      * @param description a description of the command
      * @param aliases     aliases of the command; the first one in the array will always be the primary alias
      */
-    public Command(Consumer<MessageReceivedEvent> function, String description, String[] aliases) {
-        this.function = function;
+    public Command(String description, String[] aliases) {
         this.description = description;
         if (aliases.length == 0) {
             throw new IllegalArgumentException("A command must have at least one alias");
@@ -57,19 +48,6 @@ public class Command {
         for (int i = 0; i < aliases.length; i++) {
             aliases[i] = aliases[i].toLowerCase();
         }
-        this.aliases = List.of(aliases);
-    }
-
-    /**
-     * Creates a new Command
-     *
-     * @param function    the code to execute when this command is invoked
-     * @param description the description of the command
-     * @param aliases     an immutable list of the aliases of this command
-     */
-    protected Command(Consumer<MessageReceivedEvent> function, String description, List<String> aliases) {
-        this.function = function;
-        this.description = description;
         this.aliases = aliases;
     }
 
@@ -87,7 +65,7 @@ public class Command {
      *
      * @return the aliases of this command
      */
-    public List<String> getAliases() {
+    public String[] getAliases() {
         return aliases;
     }
 
@@ -97,7 +75,7 @@ public class Command {
      * @return the primary alias of this command
      */
     public String getPrimaryAlias() {
-        return aliases.get(0);
+        return aliases[0];
     }
 
     /**
@@ -118,9 +96,10 @@ public class Command {
      * @return whether this command should be invoked
      */
     protected boolean shouldInvoke(String[] data) {
-        logger.trace("shouldInvoke for {}: {} {} {}", getPrimaryAlias(), data.length > 0, data[0].startsWith(PREFIX),
-                aliases.contains(data[0].substring(PREFIX.length())));
-        return data.length > 0 && data[0].startsWith(PREFIX) && aliases.contains(data[0].substring(PREFIX.length()));
+        boolean startsWith = data[0].startsWith(PREFIX), isAlias = isAlias(data[0].substring(PREFIX.length()));
+        log.trace("shouldInvoke for {}: {} {} {}", getPrimaryAlias(), data.length > 0, startsWith,
+                isAlias);
+        return data.length > 0 && startsWith && isAlias;
     }
 
     /**
@@ -128,9 +107,7 @@ public class Command {
      *
      * @param event the event that gives the information needed to invoke this command
      */
-    public void invoke(MessageReceivedEvent event) {
-        function.accept(event);
-    }
+    public abstract void invoke(MessageReceivedEvent event);
 
     /**
      * Determines whether the given string is an alias of this command
@@ -139,6 +116,12 @@ public class Command {
      * @return whether the given string is an alias of this command
      */
     public boolean isAlias(String alias) {
-        return aliases.contains(alias);
+        for (String s : aliases) {
+            if (s.equals(alias)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

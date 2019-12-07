@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="91281ea2-9cbe-4228-86bc-d35afecc9bdc" name="Default Changelist" comment="">
+    <list default="true" id="d98df194-352c-437c-bec4-495f9cc249dc" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/speedrunbot/commands/Command.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/speedrunbot/Command.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/speedrunbot/commands/ConsumerCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/speedrunbot/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/speedrunbot/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/speedrunbot/Subcommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/leftisttachyon/speedrunbot/commands/ConsumerSubcommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/SpeedRunBot-0.9.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/SpeedRunBot-0.9.0.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="CodeInsightWorkspaceSettings">
-    <option name="optimizeImportsOnTheFly" value="true" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -29,15 +33,16 @@
       </MavenImportingSettings>
     </option>
   </component>
-  <component name="ProjectId" id="1UODOj73E9WKqCWO0NIWlZswqM5" />
+  <component name="ProjectId" id="1UaHGOZW0sD7PAlI9jsJhluRS5o" />
   <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+<<<<<<< HEAD
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -51,6 +56,12 @@
   <component name="RunAnythingCache">
     <option name="myCommands">
       <command value="mvn clean install compile" />
+=======
+  </component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="mvn clean install" />
+>>>>>>> 5e591260091454057ff7faf3fd30c03c8fa4f555
     </option>
   </component>
   <component name="RunManager">
@@ -90,14 +101,15 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="91281ea2-9cbe-4228-86bc-d35afecc9bdc" name="Default Changelist" comment="" />
-      <created>1575218719542</created>
+      <changelist id="d98df194-352c-437c-bec4-495f9cc249dc" name="Default Changelist" comment="" />
+      <created>1575587690095</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1575218719542</updated>
+      <updated>1575587690095</updated>
     </task>
     <servers />
   </component>
+<<<<<<< HEAD
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
@@ -111,30 +123,25 @@
       </map>
     </option>
   </component>
+=======
+>>>>>>> 5e591260091454057ff7faf3fd30c03c8fa4f555
   <component name="WindowStateProjectService">
-    <state x="488" y="79" key="#com.intellij.ide.util.MemberChooser" timestamp="1575235666562">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state x="808" y="408" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1575662282348">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="488" y="79" key="#com.intellij.ide.util.MemberChooser/0.0.1366.728@0.0.1366.728" timestamp="1575235666562" />
-    <state x="476" y="199" key="#com.intellij.refactoring.move.moveInner.MoveInnerDialog" timestamp="1575231223315">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state x="808" y="408" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1575662282348" />
+    <state x="445" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1575663447885">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="476" y="199" key="#com.intellij.refactoring.move.moveInner.MoveInnerDialog/0.0.1366.728@0.0.1366.728" timestamp="1575231223315" />
-    <state width="1323" height="179" key="GridCell.Tab.0.bottom" timestamp="1575239892045">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state x="445" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1575663447885" />
+    <state width="1877" height="282" key="GridCell.Tab.0.bottom" timestamp="1575664133268">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1323" height="179" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1575239892045" />
-    <state width="1323" height="179" key="GridCell.Tab.0.center" timestamp="1575239892045">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state width="1877" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1575664133268" />
+    <state width="1877" height="282" key="GridCell.Tab.0.center" timestamp="1575664133268">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1323" height="179" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1575239892045" />
-    <state width="1323" height="179" key="GridCell.Tab.0.left" timestamp="1575239892045">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state width="1323" height="179" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1575239892045" />
-    <state width="1323" height="179" key="GridCell.Tab.0.right" timestamp="1575239892045">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
+<<<<<<< HEAD
     <state width="1323" height="179" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1575239892045" />
     <state x="184" y="0" key="SettingsEditor" timestamp="1575744515057">
       <screen x="0" y="0" width="1366" height="728" />
@@ -146,11 +153,24 @@
     <state x="379" y="187" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1575744465568" />
     <state x="324" y="90" width="700" height="530" key="recent.locations.popup" timestamp="1575219096594">
       <screen x="0" y="0" width="1366" height="728" />
+=======
+    <state width="1877" height="282" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1575664133268" />
+    <state width="1877" height="282" key="GridCell.Tab.0.left" timestamp="1575664133267">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="324" y="90" width="700" height="530" key="recent.locations.popup/0.0.1366.728@0.0.1366.728" timestamp="1575219096594" />
-    <state x="339" y="162" width="672" height="677" key="run.anything.popup" timestamp="1575234947479">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state width="1877" height="282" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1575664133267" />
+    <state width="1877" height="282" key="GridCell.Tab.0.right" timestamp="1575664133268">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="339" y="162" width="672" height="677" key="run.anything.popup/0.0.1366.728@0.0.1366.728" timestamp="1575234947479" />
+    <state width="1877" height="282" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1575664133268" />
+    <state x="655" y="342" key="com.intellij.ide.util.TipDialog" timestamp="1575587696533">
+      <screen x="0" y="0" width="1920" height="1040" />
+>>>>>>> 5e591260091454057ff7faf3fd30c03c8fa4f555
+    </state>
+    <state x="655" y="342" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1575587696533" />
+    <state x="616" y="240" width="672" height="677" key="run.anything.popup" timestamp="1575664019737">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="616" y="240" width="672" height="677" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1575664019737" />
   </component>
 </project>
