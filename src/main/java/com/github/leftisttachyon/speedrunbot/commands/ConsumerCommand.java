@@ -10,8 +10,9 @@ import java.util.function.Consumer;
  * A POJO that represents a bot command based off of a Consumer object.
  *
  * @author Jed Wang
- * @since 0.9.0
  * @see Consumer
+ * @see Command
+ * @since 0.9.0
  */
 public class ConsumerCommand extends Command {
 
@@ -39,6 +40,7 @@ public class ConsumerCommand extends Command {
 
     @Override
     public void invoke(MessageReceivedEvent event) {
+        log.trace("Invoking the function in the command {}{}", PREFIX, getPrimaryAlias());
         function.accept(event);
     }
 }

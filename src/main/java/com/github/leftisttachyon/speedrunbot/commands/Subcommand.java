@@ -1,13 +1,10 @@
 package com.github.leftisttachyon.speedrunbot.commands;
 
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-
-import java.util.function.Consumer;
-
 /**
  * A POJO object that represents a subcommand.
  *
  * @author Jed Wang
+ * @see Command
  * @since 0.9.0
  */
 public abstract class Subcommand extends Command {
@@ -35,13 +32,11 @@ public abstract class Subcommand extends Command {
     /**
      * Creates a subcommand based off of a parent command
      *
-     * @param function    the code that invoking this subcommand will execute
      * @param description a description of this subcommand
      * @param subAliases  the aliases of this subcommand
      * @param parent      the parent of this subcommand
      */
-    public Subcommand(Consumer<MessageReceivedEvent> function, String description, String[] subAliases,
-                              ConsumerCommand parent) {
+    public Subcommand(String description, String[] subAliases, ConsumerCommand parent) {
         super(description, parent.getAliases());
         for (int i = 0; i < subAliases.length; i++) {
             subAliases[i] = subAliases[i].toLowerCase();
